@@ -12,6 +12,18 @@ export default function Home() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  const getPhotos = async () => {
+    const photos = await service.get(
+      "?per_page=30&?page=1&query=desk?orientation=landscape"
+    );
+    console.log(photos);
+  };
+
+  React.useEffect(() => {
+    getPhotos();
+  }, []);
+
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
@@ -30,10 +42,4 @@ export default function Home() {
       </FormControl>
     </Box>
   );
-}
-
-export async function getServerSideProps() {
-  const repos = await service.get("daniellimapro/repos");
-  console.log(repos);
-  return { props: {} };
 }
