@@ -1,11 +1,17 @@
-import ContextProvider from "../context";
+import { RecoilRoot } from "recoil";
 import "../styles/globals.css";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ContextProvider>
+    <RecoilRoot>
+      <Head>
+        <title>
+          Curso: Profissionalizando o gerenciamento de estados no React.
+        </title>
+      </Head>
       <Component {...pageProps} />
-    </ContextProvider>
+    </RecoilRoot>
   );
 }
 

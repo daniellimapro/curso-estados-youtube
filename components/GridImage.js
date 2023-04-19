@@ -2,12 +2,16 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
+import { useRecoilState } from "recoil";
+import { photosList } from "../atomos";
 
-export function GridImage({ photos }) {
+export function GridImage() {
+  const [photosListRender] = useRecoilState(photosList);
+
   return (
     <Box sx={{ width: "100%", minHeight: 829, mt: 3 }}>
       <Masonry columns={3}>
-        {photos.map((item, index) => (
+        {photosListRender.map((item, index) => (
           <div key={index}>
             <img
               src={`${item.urls.small}?w=162&auto=format`}
