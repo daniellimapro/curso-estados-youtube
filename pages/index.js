@@ -1,27 +1,16 @@
-import * as React from "react";
-import { service } from "../service";
+import React, { useContext } from "react";
 import Container from "@mui/material/Container";
 import { Header } from "../components/Header";
 import { GridImage } from "../components/GridImage";
+import { Context } from "../context";
 
 export default function Home() {
-  const [photos, setPhotos] = React.useState([]);
-
-  const getPhotos = async () => {
-    const photos = await service.get(
-      "?per_page=30&?page=1&query=desk?orientation=landscape"
-    );
-    setPhotos(photos.data);
-  };
-
-  React.useEffect(() => {
-    getPhotos();
-  }, []);
+  const { photosContext } = useContext(Context);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2 }}>
       <Header />
-      <GridImage photos={photos} />
+      <GridImage photos={photosContext} />
     </Container>
   );
 }
