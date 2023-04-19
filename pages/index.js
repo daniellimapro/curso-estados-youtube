@@ -1,23 +1,17 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { service } from "../service";
+import Container from "@mui/material/Container";
+import { Header } from "../components/Header";
+import { GridImage } from "../components/GridImage";
 
 export default function Home() {
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const [photos, setPhotos] = React.useState([]);
 
   const getPhotos = async () => {
     const photos = await service.get(
       "?per_page=30&?page=1&query=desk?orientation=landscape"
     );
-    console.log(photos);
+    setPhotos(photos.data);
   };
 
   React.useEffect(() => {
@@ -25,21 +19,9 @@ export default function Home() {
   }, []);
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <Container maxWidth="lg" sx={{ mt: 2 }}>
+      <Header />
+      <GridImage photos={photos} />
+    </Container>
   );
 }
